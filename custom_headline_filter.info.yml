@@ -1,0 +1,6 @@
+name: 'Custom Headline Filter'
+type: module
+description: 'Provides a Views filter for removing similar headlines. Duplicate headlines can exist due to technical error in the incoming RSS feed, crossposting between websites, or multiple news outlets reporting on the same story. Adjust the similarity threshold in the View UI to taste.'
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:views

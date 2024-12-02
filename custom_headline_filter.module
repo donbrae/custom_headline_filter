@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Contains custom_headline_filter.module
+ */
+
+/**
+ * Implements hook_views_data().
+ */
+function custom_headline_filter_views_data() {
+  $data['views']['similar_headline_filter'] = [
+    'title' => t('Similar Headline Filter'),
+    'filter' => [
+      'title' => t('Filter Similar Headlines'),
+      'help' => t('Removes headlines that are similar to ones already displayed.'),
+      'id' => 'similar_headline_filter',
+    ],
+  ];
+
+  return $data;
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function custom_headline_filter_views_post_execute($view) {
+  // \Drupal::logger('custom_headline_filter')->notice('Post execute hook called');
+  foreach ($view->filter as $filter) {
+    if ($filter instanceof \Drupal\custom_headline_filter\Plugin\views\filter\SimilarHeadlineFilter) {
+      // \Drupal::logger('custom_headline_filter')->notice('Found our filter, calling filterSimilarHeadlines');
+      $filter->filterSimilarHeadlines();
+      break;
+    }
+  }
+}
+
+/**
+ * {@inheritdoc}
+ */
+function query() {
+  \Drupal::logger('custom_headline_filter')->notice('Query method started');
+}
